@@ -20,8 +20,6 @@ public class MergeSort {
 	        System.out.println(Arrays.toString(arr));
 	        sort(arr);
 	        System.out.println(Arrays.toString(arr));
-	        
-	        
 	    }
 	 
         
@@ -38,7 +36,6 @@ public class MergeSort {
     		sort(first);
     		sort(second);
     		merge(first,second,arr);
-    		
     }
 
 	private static void merge(Comparable<Integer>[] first, Comparable<Integer>[] second, Comparable<Integer>[] arr) {
@@ -49,7 +46,6 @@ public class MergeSort {
 			if(first[iFirst].compareTo((Integer) second[iSecond])<  0) {
 				arr[iMerged]= first[iFirst];
 				iFirst++;
-						
 			}else {
 				arr[iMerged]=second[iSecond];
 				iSecond++;
