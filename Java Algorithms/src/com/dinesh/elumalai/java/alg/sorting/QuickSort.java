@@ -18,55 +18,56 @@ public class QuickSort {
 		System.out.println(Arrays.toString(x));
 		int low = 0;
 		int high = x.length - 1;
-		sort(x, low, high);
+		quickSort(x, low, high);
 		System.out.println(Arrays.toString(x));
 	}
 
-	 /*
-	 * This function takes last element as pivot, places the pivot element at
-	 * its correct position in sorted array, and places all smaller (smaller
-	 * than pivot) to left of pivot and all greater elements to right of pivot
-	 */
-	static int partition(int arr[], int low, int high) {
-		int pivot = arr[high];
-		int i = (low - 1); // index of smaller element
-		for (int j = low; j < high; j++) {
-			// If current element is smaller than or
-			// equal to pivot
-			if (arr[j] <= pivot) {
-				i++;
-
-				// swap arr[i] and arr[j]
-				int temp = arr[i];
-				arr[i] = arr[j];
-				arr[j] = temp;
+	private static void quickSort(int[] x, int low, int high) {
+		
+		//Check for null and break if low is greater than equal to high
+		if(x ==null || x.length <=0 || low>=high) {
+			return;
+		}
+		//Setting the pivot to x[high]
+		int pivot = x[high];
+		int left = low, right = high;
+		while(left<=right) {
+			//Check until all values on left side array are lower than pivot
+			while(x[left]<pivot) {
+				left++;
 			}
+			//Check until all values on left side array are greater than pivot
+			while(x[right]>pivot) {
+				right--;
+			}
+			//Now compare values from both side of lists to see if they need swapping
+            //After swapping move the iterator on both lists
+			if(left<=right) {
+				swap(x,left,right);
+				left++;
+				right--;
+			}
+			
 		}
-
-		// swap arr[i+1] and arr[high] (or pivot)
-		int temp = arr[i + 1];
-		arr[i + 1] = arr[high];
-		arr[high] = temp;
-
-		return i + 1;
+		//Do same operation as above recursively to sort two sub arrays
+		if(low<right) {
+			quickSort(x, low, right);
+		}
+		if(high>left) {
+			quickSort(x, left, high);
+		}
+		
 	}
 
-	/*
-	 * The main function that implements QuickSort() arr[] --> Array to be
-	 * sorted, low --> Starting index, high --> Ending index
-	 */
-	static void sort(int arr[], int low, int high) {
-		if (low < high) {
-			/*
-			 * pi is partitioning index, arr[pi] is now at right place
-			 */
-			int pi = partition(arr, low, high);
-
-			// Recursively sort elements before
-			// partition and after partition
-			sort(arr, low, pi - 1);
-			sort(arr, pi + 1, high);
-		}
+	private static void swap(int[] x, int left, int right) {
+		int temp = x[left];
+		x[left] = x[right];
+		x[right]= temp;
+		
 	}
+
+	
+
+	
 
 }
