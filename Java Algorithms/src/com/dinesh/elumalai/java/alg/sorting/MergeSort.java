@@ -1,5 +1,7 @@
 package com.dinesh.elumalai.java.alg.sorting;
 
+import java.util.Arrays;
+
 /**
  * 
  * @author Dinesh Elumalai
@@ -11,64 +13,47 @@ package com.dinesh.elumalai.java.alg.sorting;
  */
 public class MergeSort {
 	
-	private int[] array;
-    private int[] tempMergArr;
-    private int length;
 	
 	 public static void main(String a[]){
          
-	        int[] inputArr = {45,23,11,89,77,98,4,28,65,43};
-	        MergeSort mms = new MergeSort();
-	        mms.sort(inputArr);
-	        for(int i:inputArr){
-	            System.out.print(i);
-	            System.out.print(" ");
-	        }
+	        Integer[] arr = {34,45,565,3,324,6436};
+	        System.out.println(Arrays.toString(arr));
+	        sort(arr);
+	        System.out.println(Arrays.toString(arr));
 	    }
 	 
-    public void sort(int inputArr[]) {
-        this.array = inputArr;
-        this.length = inputArr.length;
-        this.tempMergArr = new int[length];
-        doMergeSort(0, length - 1);
-    }
-    
-    private void doMergeSort(int lowerIndex, int higherIndex) {
         
-        if (lowerIndex < higherIndex) {
-            int middle = lowerIndex + (higherIndex - lowerIndex) / 2;
-            // Below step sorts the left side of the array
-            doMergeSort(lowerIndex, middle);
-            // Below step sorts the right side of the array
-            doMergeSort(middle + 1, higherIndex);
-            // Now merge both sides
-            mergeParts(lowerIndex, middle, higherIndex);
-        }
+    @SuppressWarnings("unchecked")
+	static void sort(Comparable<Integer>[] arr) {
+    		if(arr.length<=1) {
+    			return;
+    		}
+    		Comparable<Integer>[] first =new Comparable[arr.length / 2];
+    		Comparable<Integer>[] second =new Comparable[arr.length-first.length];
+    		System.arraycopy(arr, 0, first, 0, first.length);
+    		System.arraycopy(arr, first.length, second, 0, second.length);
+    		
+    		sort(first);
+    		sort(second);
+    		merge(first,second,arr);
     }
- 
-    private void mergeParts(int lowerIndex, int middle, int higherIndex) {
- 
-        for (int i = lowerIndex; i <= higherIndex; i++) {
-            tempMergArr[i] = array[i];
-        }
-        int i = lowerIndex;
-        int j = middle + 1;
-        int k = lowerIndex;
-        while (i <= middle && j <= higherIndex) {
-            if (tempMergArr[i] <= tempMergArr[j]) {
-                array[k] = tempMergArr[i];
-                i++;
-            } else {
-                array[k] = tempMergArr[j];
-                j++;
-            }
-            k++;
-        }
-        while (i <= middle) {
-            array[k] = tempMergArr[i];
-            k++;
-            i++;
-        }
- 
-    }
+
+	private static void merge(Comparable<Integer>[] first, Comparable<Integer>[] second, Comparable<Integer>[] arr) {
+		
+		int iFirst = 0,iSecond = 0,iMerged = 0;
+		 
+		while(iFirst<first.length && iSecond < second.length) {
+			if(first[iFirst].compareTo((Integer) second[iSecond])<  0) {
+				arr[iMerged]= first[iFirst];
+				iFirst++;
+			}else {
+				arr[iMerged]=second[iSecond];
+				iSecond++;
+			}
+			iMerged++;
+			
+		}
+		System.arraycopy(first, iFirst, arr, iMerged, first.length-iFirst);
+		System.arraycopy(second, iSecond, arr, iMerged, second.length-iSecond);
+	}
 }
