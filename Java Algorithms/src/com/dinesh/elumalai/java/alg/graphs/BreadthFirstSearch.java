@@ -7,6 +7,8 @@ import java.util.Queue;
 
 /**
  * @author Dinesh Elumalai
+ * Breadth first search is graph traversal algorithm. In this algorithm, 
+ * lets say we start with node i, then we will visit neighbors of i, then neighbors of neighbors of i and so on
  * Steps for Breadth first search:
  *		Create empty queue and push root node to it.
  *			Do the following when queue is not empty
